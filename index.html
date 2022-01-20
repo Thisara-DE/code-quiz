@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Time!</title>
+    <link rel="stylesheet" href="../code-quiz/assets/css/style.css">
+</head>
+<body>
+    <!-- header includes highscore and time -->
+    <header>
+        <div id="headline" class="headline-group">
+            <div class="high-score">
+                <p id="view-hs">View high score<p>
+            </div>
+            <div class="time">
+                <p id="time">Time: </p>
+            </div>
+        </div>
+    </header>
+    <!-- quiz body -->
+    <main id="quiz-body" class="quiz-body">
+        <!-- question title -->
+        <div class="question-title-wrapper">
+            <h2 id="question-title" class="question-title">This is the title</h2>
+        </div>
+        <!-- question texts -->
+        <div class="question-wrapper">
+            <p id="intro-text" class="intro-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta suscipit incidunt, sed assumenda omnis, qui non cum dignissimos impedit iure neque architecto maiores dolor corporis. Pariatur dolores ratione non molestiae!</p>
+        </div>
+        <!-- multiple choice answers and buttons -->
+        <div class="answers-group">
+            <button id="action-btn" class="action-btn">Start Quiz</button>            
+            <ol id="answer-option"></ol> <!-- class="answer-option" -->
+            
+
+        </div>
+        <!-- correct or wrong answer status -->
+        <div id="answer-status">
+            <p id="answer-status"></p> <!-- class="answer-status" -->
+            
+        </div>
+    </main>
+    
+
+    <script src="../code-quiz/assets/js/script.js"></script>
+</body>
+</html>
