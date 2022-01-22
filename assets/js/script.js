@@ -26,7 +26,7 @@ var questions = [{
     answer: 1,
     choices: ["Storing numbers, dates, or other values","Varying randomly","Causing high-school algebra flashbacks","None of the above"]
     },
-    {question: "What is the correct JavaScript syntax to write 'Hello World'",
+    {question: "What is the correct JavaScript syntax to write 'Hello World'?",
     answer: 3,
     choices: ["System.out.println('Hello World')","println ('Hello World')","document.write('Hello World')","response.write('Hello World')"]
     },
@@ -54,7 +54,7 @@ var questions = [{
     answer: 1,
     choices: ["Eval","parseInt","parseFloat","Efloat"]
     },
-    {question: "Which of the following event fires when the form element loses the focus: <button>, <input>, <label>, <select>, <textarea>?",
+    {question: "Which of the following event fires when the form element loses the focus?: <button>, <input>, <label>, <select>, <textarea>",
     answer: 2,
     choices: ["onfocus","onblur","onclick","ondblclick"]
     },
@@ -63,33 +63,81 @@ var questions = [{
     choices: ["Array","Object","Server","Client"]
     }];
 
+var holdInterval = 0;
 
-    // create timer func
-    // variable to store the time (timeCounter)
-    // 
-    // display the time variable in the timeEl
-var timer = function(timeLeft) {
-    if (timeLeft < 0) {
-        clearInterval(timer);
+// quiz starts with the "Start button click"
+buttonEl.addEventListener('click', function () {
+    // We are checking zero because its originally set to zero
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
+        timeLeft--;
+        time.textContent = 'Time: ' + timeLeft;
+    
+            if (timeLeft <= 0) {
+                clearInterval(holdInterval);
+                // allDone();
+                time.textContent = "Time's up!";
+            }
+        }, 1000);
     }
-    timeLeft -= 1; 
-    document.getElementById("time").value = "Time: " + timeLeft;
-    console.log(timeLeft);
-       
+    startQuiz()  
+}); 
+
+var startQuiz = function() {
+    //clearing out title and and the button
+    titleEl.style.display = "none";
+    introTextEl.style.display = "none";
+    buttonEl.style.display = "none";
+    
+
+for (i=0; i < questions.length; i++) { 
+    // questions displayed on the title and answers as answerOptionsEl
+    var questionSelected = questions[i].question;
+    var AnswerOpion1 = questions[i].choices[0];
+    var AnswerOpion2 = questions[i].choices[1];
+    var AnswerOpion3 = questions[i].choices[2];
+    var AnswerOpion4 = questions[i].choices[3];
+    var correctAnswer = questions[i].choices[questions[i].answer];
+
+    var questionTitleSection = document.createElement("div");
+    questionTitleSection.className = "question-title-wrapper-quiz";
+    quizBodyEl.appendChild(questionTitleSection);
+    
+
+    var questionTitle = document.createElement("h2");
+    questionTitle.className = "question-title-quiz";
+    questionTitle.textContent = questionSelected;    
+    questionTitleSection.appendChild(questionTitle);
+
+    var answerOptions = document.createElement("ul");
+    answerOptions.className = "answer-options-group";
+    quizBodyEl.appendChild(answerOptions);
+    
+    var answerOption1 = document.createElement("button");
+    var answerOption2 = document.createElement("button");
+    var answerOption3 = document.createElement("button");
+    var answerOption4 = document.createElement("button");
+    answerOption1.className = "answer-options";
+    answerOption2.className = "answer-options";
+    answerOption3.className = "answer-options";
+    answerOption4.className = "answer-options";
+    answerOption1.textContent = AnswerOpion1;
+    answerOption2.textContent = AnswerOpion2;
+    answerOption3.textContent = AnswerOpion3;
+    answerOption4.textContent = AnswerOpion4;
+    quizBodyEl.appendChild(answerOption1);
+    quizBodyEl.appendChild(answerOption2);
+    quizBodyEl.appendChild(answerOption3);
+    quizBodyEl.appendChild(answerOption4);
+    
+    selectedOption = document.get
+
+    console.log(selectedOption);
+    
+   
 }
-timer();
-
-// var startCountdown = setInterval(timer, 1000);
-
-// console.log(timeLeft);
-
-
-// var startBtnHandler = function() {}
+}
 
 
 
 
-
-
-
-//buttonEl.addEventListener("click", startBtnHandler);    

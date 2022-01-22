@@ -40,13 +40,20 @@
 }
 
 .question-title-wrapper-quiz {
-    align-content: left;
+    text-align: left;
 }
 
 .question-title {
     font-size: 3em;
     text-align: center; 
     width: 100%;   
+}
+
+.question-title-quiz {
+    font-size: 3em;
+    text-align: left; 
+    width: 100%;
+    margin-bottom: 10px;   
 }
 
 .intro-text {
@@ -72,8 +79,9 @@
 }
 
 .answer-options-group {
-    display: block;
-    align-content: left;
+    display: flex;
+    flex-direction: column;    
+    align-items: left;
 }
 
 .answer-options {
@@ -82,7 +90,15 @@
     border-radius: 10px;
     color: white;
     padding: 5px 10px;     
-    margin: 10px; 
+    margin: 10px 0 10px 0;
+    width: 60%; 
+    text-align: left;
+}
+
+.answer-options:hover,
+.answer-options:active,
+.answer-options:focus {
+    background-color: chocolate;
 }
 
 .answer-status {
