@@ -23,18 +23,20 @@
     <main id="quiz-body" class="quiz-body">
         <!-- question title -->
         <div class="question-title-wrapper">
-            <h2 id="question-title" class="question-title">This is the title</h2>
+            <h2 id="question-title" class="question-title">Coding Quiz Challenge</h2>
         </div>
         <!-- question texts -->
         <div class="question-wrapper">
-            <p id="intro-text" class="intro-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta suscipit incidunt, sed assumenda omnis, qui non cum dignissimos impedit iure neque architecto maiores dolor corporis. Pariatur dolores ratione non molestiae!</p>
+            <p id="intro-text" class="intro-text">Try to answer following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
         </div>
         <!-- multiple choice answers and buttons -->
-        <div class="answers-group">
-            <button id="action-btn" class="action-btn">Start Quiz</button>            
-            <ol id="answer-option"></ol> <!-- class="answer-option" -->
-            
-
+        <div id="answers-group">
+            <div class="answers-group">
+                <button id="action-btn" class="action-btn">Start Quiz</button> 
+            </div>
+            <div id="answer-options-group" class="answer-options-group">           
+                <ol id="answer-options"></ol> 
+            </div>
         </div>
         <!-- correct or wrong answer status -->
         <div id="answer-status">

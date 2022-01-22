@@ -29,12 +29,18 @@
 
 .quiz-body {
     padding: 100px;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: space-around; */
+    margin: 0 330px 0 330px;
+    /* width: 80%; */
 }
 
 .question-title-wrapper {
     align-content: center;
+}
+
+.question-title-wrapper-quiz {
+    align-content: left;
 }
 
 .question-title {
@@ -52,7 +58,7 @@
 .answers-group {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 20px 0;
 }
 
 .action-btn {
@@ -65,13 +71,17 @@
     margin: 10px;  
 }
 
-.answer-option {
+.answer-options-group {
+    display: block;
+    align-content: left;
+}
+
+.answer-options {
     background-color: rgb(70, 39, 99);
     font-size: 1.8em;
     border-radius: 10px;
     color: white;
-    padding: 5px 10px; 
-    /* width: 180px; */
+    padding: 5px 10px;     
     margin: 10px; 
 }
 
