@@ -20,6 +20,7 @@ This quiz was developed to be used by potential employers as a tool evaluate a c
 
 https://thisaramallawaarachchige.github.io/code-quiz/
 
+<img src="./assets/Screenshot-for-markdown.png" alt="Picture of the website's landing page"/>
 
 ## Contribution
 
