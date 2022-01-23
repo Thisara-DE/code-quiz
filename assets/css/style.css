@@ -28,7 +28,7 @@
 }
 
 .quiz-body {
-    padding: 100px;
+    padding: 100px 100px 50px 100px;
     /* align-items: center; */
     /* justify-content: space-around; */
     margin: 0 330px 0 330px;
@@ -109,7 +109,8 @@
     font-style: italic;
     margin-top: 20px;
     font-size: 2em;
-    width: 70%;
+    width: 50%;
+    margin: 0 430px 0 430px;
 }
 
 .quiz-end {
@@ -118,7 +119,32 @@
     padding-top: 20px;
 }
 
+.user-init-cont {
+    display: flex;
+    justify-content: left;
+    padding: 20px 20px 20px 0;
+}
+
 .enterInit {
     width: 200px;
-    margin: 0 20px 0 20px;
+    height: 30px;
+    margin: 20px 20px 20px 20px;
+    font-size: 25px;
+    padding-left: 10px;
+}
+
+.submit-button {
+    background-color: rgb(70, 39, 99);
+    font-size: 1.8em;
+    border-radius: 15px;
+    color: white;
+    padding: 10px; 
+    width: 180px; 
+    margin: 15px 0 20px 0; 
+}
+
+.submit-button:hover,
+/* .submit-button:active, */
+.submit-button:focus {
+    background-color: rgb(165, 100, 219);
 }

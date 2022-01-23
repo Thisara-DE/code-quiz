@@ -15,6 +15,7 @@ var answerOption1El = document.querySelector("button");
 var answerOption2El = document.querySelector("button");
 var answerOption3El = document.querySelector("button");
 var answerOption4El = document.querySelector("button");
+var answerStatusContEl = document.querySelector("#answer-status-container");
 
 // display the welcome screen
 // capture start quiz button input
@@ -104,8 +105,7 @@ var getQuestion = function() {
     var AnswerOpion2 = questions[questionIndex].choices[1];
     var AnswerOpion3 = questions[questionIndex].choices[2];
     var AnswerOpion4 = questions[questionIndex].choices[3];
-    var correctAnswer = questions[questionIndex].choices[questions[questionIndex].answer];
-
+    
     var questionTitleSection = document.createElement("div");
     questionTitleSection.className = "question-title-wrapper-quiz";
     quizBodyEl.appendChild(questionTitleSection);
@@ -137,12 +137,6 @@ var getQuestion = function() {
     quizBodyEl.appendChild(answerOption3El);
     quizBodyEl.appendChild(answerOption4El);     
 
-    var answerStatusContainerEl = document.createElement("div");                
-    var answerStatusEl = document.createElement("p");
-    answerStatusEl.className = "answer-status";
-    answerStatusContainerEl.appendChild(answerStatusEl);
-    quizBodyEl.appendChild(answerStatusContainerEl);
-
     answerOption1El.addEventListener("click", evaluateAnswer);
     answerOption2El.addEventListener("click", evaluateAnswer);
     answerOption3El.addEventListener("click", evaluateAnswer);
@@ -159,32 +153,31 @@ var getQuestion = function() {
 
 
 
-var evaluateAnswer = function(event) {
-    var selectedAnswer = event.target.textContent;
-
-    var answerStatusContainerEl = document.createElement("div");                
+var evaluateAnswer = function(event) {    
+    answerStatusContEl.innerHTML='';
+    var selectedAnswer = event.target.textContent;      
+                 
     var answerStatusEl = document.createElement("p");
     answerStatusEl.className = "answer-status";
     
     if (selectedAnswer === questions[questionIndex].choices[questions[questionIndex].answer-1]) { 
         answerStatusEl.textContent = "Correct Answer!"
-        answerStatusContainerEl.appendChild(answerStatusEl);
-        quizBodyEl.appendChild(answerStatusContainerEl);                                
+        answerStatusContEl.appendChild(answerStatusEl);
+                                        
     }
     else
     {       
         answerStatusEl.textContent = "Wrong";
-        answerStatusContainerEl.appendChild(answerStatusEl);
-        quizBodyEl.appendChild(answerStatusContainerEl);        
+        answerStatusContEl.appendChild(answerStatusEl);                
         timeLeft = timeLeft - 10;            
     }
-    questionIndex++;  
+    questionIndex++;      
     startQuiz();  
              
 }
 
 var quizEnd = function(timeLeft) {    
-
+    answerStatusContEl.innerHTML = '';
     quizBodyEl.innerHTML='';
     var finalScore = timeLeft;
 
@@ -194,8 +187,7 @@ var quizEnd = function(timeLeft) {
     else {
         finalScore = timeLeft;
     }
-    console.log(finalScore);    
-
+    
     var quizEndMsgContainer = document.createElement("div");
     quizEndMsgContainer.className = "question-title-wrapper-quiz";
     quizBodyEl.appendChild(quizEndMsgContainer);
@@ -211,25 +203,50 @@ var quizEnd = function(timeLeft) {
     quizEndMsgContainer.appendChild(MsgContent);
     
     var initFormCont = document.createElement("div");
+    initFormCont.className = "user-init-cont";
     quizEndMsgContainer.appendChild(initFormCont); 
     quizEndMsgContainer.appendChild(initFormCont);   
 
     var initFormLable = document.createElement("p");
-    initFormLable.className = "quiz-end";
+    initFormLable.className = "quiz-end user-init-cont";
     initFormLable.textContent = "Enter initials: ";
-    initFormCont.appendchild(initFormLable);
+    initFormCont.appendChild(initFormLable);
 
     var initInput = document.createElement("input");
-    initInput.className = "enterInit";
-    initFormCont.appendChild(initInput);   
+    initInput.className = "enterInit user-init-cont";
+    initInput.setAttribute = ("id", "textarea");
+    initFormCont.appendChild(initInput);
+    
+    var submitButtonEl = document.createElement("button")
+    submitButtonEl.className = "submit-button";
+    submitButtonEl.textContent = "Submit";
+    initFormCont.appendChild(submitButtonEl);
 
+    
+    
+
+    submitButtonEl.addEventListener("click", function() {
+        
+        var userInitials = document.querySelector(".enterInit").value;
+        console.log(userInitials);
+
+        saveProgress(userInitials, finalScore)        
+    
+    });     
 }
 
-// click event to capture the answer 
-// attach a click event to each button
-// as the user click on it, next step
-// eveluate the answer
-// increment the question index by 1
+var userObj = [{name: " ",score: 0}];
+
+var saveProgress = function(userInitials, finalScore){
+
+    if (!userInitials) {
+        alert("Please enter your initials before submitting")
+    }
+
+    var userObj = {name: userInitials, score: finalScore}
+    
+    localStorage.setItem("userObj", JSON.stringify(userObj))
+}
 
 buttonEl.addEventListener("click", startTimer);
 
