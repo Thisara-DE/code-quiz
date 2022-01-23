@@ -1,5 +1,7 @@
 var timeLeft = 75;
 var userScore = 0;
+var holdInterval = 0;
+var questionIndex = 0;
 
 //El for DOM element
 var headlineEl = document.querySelector("#headline");
@@ -9,6 +11,10 @@ var introTextEl = document.querySelector("#intro-text");
 var answerOptionsEl = document.querySelector("#answer-options-group");
 var answerStatusEl = document.querySelector("#answer-status");
 var buttonEl = document.querySelector("#action-btn");
+var answerOption1El = document.querySelector("button");
+var answerOption2El = document.querySelector("button");
+var answerOption3El = document.querySelector("button");
+var answerOption4El = document.querySelector("button");
 
 // display the welcome screen
 // capture start quiz button input
@@ -63,10 +69,9 @@ var questions = [{
     choices: ["Array","Object","Server","Client"]
     }];
 
-var holdInterval = 0;
 
 // quiz starts with the "Start button click"
-buttonEl.addEventListener('click', function () {
+ var startTimer = function() {
     // We are checking zero because its originally set to zero
     if (holdInterval === 0) {
         holdInterval = setInterval(function () {
@@ -80,24 +85,26 @@ buttonEl.addEventListener('click', function () {
             }
         }, 1000);
     }
-    startQuiz()  
-}); 
+    startQuiz();  
+} 
 
 var startQuiz = function() {
     //clearing out title and and the button
     titleEl.style.display = "none";
     introTextEl.style.display = "none";
     buttonEl.style.display = "none";
-    
+    getQuestion();
+}
 
-for (i=0; i < questions.length; i++) { 
+var getQuestion = function() { 
+    // for (i=0; i < questions.length; i++) { 
     // questions displayed on the title and answers as answerOptionsEl
-    var questionSelected = questions[i].question;
-    var AnswerOpion1 = questions[i].choices[0];
-    var AnswerOpion2 = questions[i].choices[1];
-    var AnswerOpion3 = questions[i].choices[2];
-    var AnswerOpion4 = questions[i].choices[3];
-    var correctAnswer = questions[i].choices[questions[i].answer];
+    var questionSelected = questions[questionIndex].question;
+    var AnswerOpion1 = questions[questionIndex].choices[0];
+    var AnswerOpion2 = questions[questionIndex].choices[1];
+    var AnswerOpion3 = questions[questionIndex].choices[2];
+    var AnswerOpion4 = questions[questionIndex].choices[3];
+    var correctAnswer = questions[questionIndex].choices[questions[questionIndex].answer];
 
     var questionTitleSection = document.createElement("div");
     questionTitleSection.className = "question-title-wrapper-quiz";
@@ -113,31 +120,67 @@ for (i=0; i < questions.length; i++) {
     answerOptions.className = "answer-options-group";
     quizBodyEl.appendChild(answerOptions);
     
-    var answerOption1 = document.createElement("button");
-    var answerOption2 = document.createElement("button");
-    var answerOption3 = document.createElement("button");
-    var answerOption4 = document.createElement("button");
-    answerOption1.className = "answer-options";
-    answerOption2.className = "answer-options";
-    answerOption3.className = "answer-options";
-    answerOption4.className = "answer-options";
-    answerOption1.textContent = AnswerOpion1;
-    answerOption2.textContent = AnswerOpion2;
-    answerOption3.textContent = AnswerOpion3;
-    answerOption4.textContent = AnswerOpion4;
-    quizBodyEl.appendChild(answerOption1);
-    quizBodyEl.appendChild(answerOption2);
-    quizBodyEl.appendChild(answerOption3);
-    quizBodyEl.appendChild(answerOption4);
-    
-    selectedOption = document.get
+    var answerOption1El = document.createElement("button");
+    var answerOption2El = document.createElement("button");
+    var answerOption3El = document.createElement("button");
+    var answerOption4El = document.createElement("button");
+    answerOption1El.className = "answer-options";
+    answerOption2El.className = "answer-options";
+    answerOption3El.className = "answer-options";
+    answerOption4El.className = "answer-options";
+    answerOption1El.textContent = AnswerOpion1;
+    answerOption2El.textContent = AnswerOpion2;
+    answerOption3El.textContent = AnswerOpion3;
+    answerOption4El.textContent = AnswerOpion4;
+    quizBodyEl.appendChild(answerOption1El);
+    quizBodyEl.appendChild(answerOption2El);
+    quizBodyEl.appendChild(answerOption3El);
+    quizBodyEl.appendChild(answerOption4El);     
 
-    console.log(selectedOption);
-    
-   
-}
+    answerOption1El.addEventListener("click", evaluateAnswer);
+    answerOption2El.addEventListener("click", evaluateAnswer);
+    answerOption3El.addEventListener("click", evaluateAnswer);
+    answerOption4El.addEventListener("click", evaluateAnswer);
 }
 
+
+
+var evaluateAnswer = function(event) {    
+    var selectedAnswer = event.target.textContent;
+
+    var answerStatusContainerEl = document.createElement("div");
+                
+    var answerStatusEl = document.createElement("p");
+    answerStatusEl.className = "answer-status";
+
+    answerStatusContainerEl.appendChild(answerStatusEl);
+    quizBodyEl.appendChild(answerStatusContainerEl);
+    
+    if (selectedAnswer === questions[questionIndex].choices[questions[questionIndex].answer-1]) {    
+        answerStatusEl.textContent = "Correct Answer!"             
+    }
+    else
+    {
+        answerStatusEl.textContent
+        answerStatusEl.textContent = "Wrong"
+        timeLeft = timeLeft - 10;        
+    }
+    questionIndex++;
+    console.log(questionIndex);
+    titleEl.style.display = "none";
+    introTextEl.style.display = "none";
+    buttonEl.style.display = "none";
+    startQuiz();
+    console.log(questionIndex);
+}
+
+// click event to capture the answer 
+// attach a click event to each button
+// as the user click on it, next step
+// eveluate the answer
+// increment the question index by 1
+
+buttonEl.addEventListener("click", startTimer);
 
 
 
