@@ -111,3 +111,14 @@
     font-size: 2em;
     width: 70%;
 }
+
+.quiz-end {
+    text-align: left;
+    font-size: 2em;
+    padding-top: 20px;
+}
+
+.enterInit {
+    width: 200px;
+    margin: 0 20px 0 20px;
+}

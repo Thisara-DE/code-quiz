@@ -80,7 +80,7 @@ var questions = [{
     
             if (timeLeft <= 0) {
                 clearInterval(holdInterval);
-                // allDone();
+                quizEnd(timeLeft);
                 time.textContent = "Time's up!";
             }
         }, 1000);
@@ -90,14 +90,14 @@ var questions = [{
 
 var startQuiz = function() {
     //clearing out title and and the button
-    titleEl.style.display = "none";
-    introTextEl.style.display = "none";
-    buttonEl.style.display = "none";
+    quizBodyEl.innerHTML='';
+    
     getQuestion();
 }
 
 var getQuestion = function() { 
-    // for (i=0; i < questions.length; i++) { 
+    
+    if (questionIndex < questions.length) {    
     // questions displayed on the title and answers as answerOptionsEl
     var questionSelected = questions[questionIndex].question;
     var AnswerOpion1 = questions[questionIndex].choices[0];
@@ -137,41 +137,92 @@ var getQuestion = function() {
     quizBodyEl.appendChild(answerOption3El);
     quizBodyEl.appendChild(answerOption4El);     
 
+    var answerStatusContainerEl = document.createElement("div");                
+    var answerStatusEl = document.createElement("p");
+    answerStatusEl.className = "answer-status";
+    answerStatusContainerEl.appendChild(answerStatusEl);
+    quizBodyEl.appendChild(answerStatusContainerEl);
+
     answerOption1El.addEventListener("click", evaluateAnswer);
     answerOption2El.addEventListener("click", evaluateAnswer);
     answerOption3El.addEventListener("click", evaluateAnswer);
-    answerOption4El.addEventListener("click", evaluateAnswer);
+    answerOption4El.addEventListener("click", evaluateAnswer); 
+    
+    }
+    else
+    {
+    quizBodyEl.innerHTML='';
+    quizEnd(timeLeft);
+    clearInterval(holdInterval);
+    }          
 }
 
 
 
-var evaluateAnswer = function(event) {    
+var evaluateAnswer = function(event) {
     var selectedAnswer = event.target.textContent;
 
-    var answerStatusContainerEl = document.createElement("div");
-                
+    var answerStatusContainerEl = document.createElement("div");                
     var answerStatusEl = document.createElement("p");
     answerStatusEl.className = "answer-status";
-
-    answerStatusContainerEl.appendChild(answerStatusEl);
-    quizBodyEl.appendChild(answerStatusContainerEl);
     
-    if (selectedAnswer === questions[questionIndex].choices[questions[questionIndex].answer-1]) {    
-        answerStatusEl.textContent = "Correct Answer!"             
+    if (selectedAnswer === questions[questionIndex].choices[questions[questionIndex].answer-1]) { 
+        answerStatusEl.textContent = "Correct Answer!"
+        answerStatusContainerEl.appendChild(answerStatusEl);
+        quizBodyEl.appendChild(answerStatusContainerEl);                                
     }
     else
-    {
-        answerStatusEl.textContent
-        answerStatusEl.textContent = "Wrong"
-        timeLeft = timeLeft - 10;        
+    {       
+        answerStatusEl.textContent = "Wrong";
+        answerStatusContainerEl.appendChild(answerStatusEl);
+        quizBodyEl.appendChild(answerStatusContainerEl);        
+        timeLeft = timeLeft - 10;            
     }
-    questionIndex++;
-    console.log(questionIndex);
-    titleEl.style.display = "none";
-    introTextEl.style.display = "none";
-    buttonEl.style.display = "none";
-    startQuiz();
-    console.log(questionIndex);
+    questionIndex++;  
+    startQuiz();  
+             
+}
+
+var quizEnd = function(timeLeft) {    
+
+    quizBodyEl.innerHTML='';
+    var finalScore = timeLeft;
+
+    if (timeLeft < 0) {
+        finalScore = 0
+    }
+    else {
+        finalScore = timeLeft;
+    }
+    console.log(finalScore);    
+
+    var quizEndMsgContainer = document.createElement("div");
+    quizEndMsgContainer.className = "question-title-wrapper-quiz";
+    quizBodyEl.appendChild(quizEndMsgContainer);
+
+    var MsgTitle = document.createElement("h2");
+    MsgTitle.className = "question-title-quiz";
+    MsgTitle.textContent = "All done!";    
+    quizEndMsgContainer.appendChild(MsgTitle);
+
+    var MsgContent = document.createElement("p");
+    MsgContent.className = "quiz-end";
+    MsgContent.textContent = "Your final score is " + finalScore + ".";
+    quizEndMsgContainer.appendChild(MsgContent);
+    
+    var initFormCont = document.createElement("div");
+    quizEndMsgContainer.appendChild(initFormCont); 
+    quizEndMsgContainer.appendChild(initFormCont);   
+
+    var initFormLable = document.createElement("p");
+    initFormLable.className = "quiz-end";
+    initFormLable.textContent = "Enter initials: ";
+    initFormCont.appendchild(initFormLable);
+
+    var initInput = document.createElement("input");
+    initInput.className = "enterInit";
+    initFormCont.appendChild(initInput);   
+
 }
 
 // click event to capture the answer 
